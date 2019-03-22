@@ -1,0 +1,9 @@
+{
+    "name": "DrawThis",
+    "description": "Collaborative drawing experience",
+    "author": "kuttley",
+    "dependencies": {
+        "express": "^4.x",
+        "socket.io": "*"
+    }
+}

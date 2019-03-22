@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Draw This</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</head>
+<body>
+    <img src="logo.png" alt="draw this logo">
+    <canvas class="d-flex mr-auto ml-auto my-3 border border-primary shadow" id="drawing"></canvas>
+    <div class="d-flex">
+        <input class="ml-auto mr-5 btn btn-outline-primary" type="button" value="Clear" onclick="clear_lines();"/>
+        <input class="mr-auto btn btn-outline-primary" type="button" value="Save Canvas" onclick="save_canvas();" />
+    </div>
+</body>
+</html>
+
+<!--
+
+TODO: Add a chat
+TODO: Save your color/Choose your color
+TODO: Clear button only avail for me? or ask a question before clearing
+TODO: Add a save button to save the canvas, and let people see past saved
+
+-->
