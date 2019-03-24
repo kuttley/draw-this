@@ -12,9 +12,11 @@
     <img src="logo.png" alt="draw this logo">
     <canvas class="d-flex mr-auto ml-auto my-3 border border-primary shadow" id="drawing"></canvas>
     <div class="d-flex">
-        <input class="ml-auto mr-5 btn btn-outline-primary" type="button" value="Clear" onclick="clear_lines();"/>
-        <input class="mr-auto btn btn-outline-primary" type="button" value="Save Canvas" onclick="save_canvas();" />
+        <input class="ml-auto mr-5 btn btn-outline-primary" type="button" value="Clear Canvas" onclick="clear_lines();"/>
+        <input class="mr-5 btn btn-outline-primary" type="button" value="Save Canvas" id="save-canvas-btn" />
+        <input class="mr-auto btn btn-outline-primary" type="button" value="Load Canvas" onclick="load_canvas();">
     </div>
+    <div id="load-canvas"></div>
 </body>
 </html>
 
@@ -23,6 +25,7 @@
 TODO: Add a chat
 TODO: Save your color/Choose your color
 TODO: Clear button only avail for me? or ask a question before clearing
-TODO: Add a save button to save the canvas, and let people see past saved
+TODO: Saving/Loading canvases more than just 1 file.
+TODO: Load Canvas creates an overlay of images to see/select from
 
 -->

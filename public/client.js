@@ -12,9 +12,8 @@ function clear_lines() {
     socket.emit('clear_lines', true);
 }
 
-function save_canvas() {
-    socket.emit('save_canvas', true);
-    socket.emit('clear_lines', true);
+function load_canvas() {
+    socket.emit('load_canvas');
 }
 
 function getRandomColor() {
@@ -100,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         context.closePath();
     });
 
-
     const main = function mainLoop() {
         if (mouse.click && mouse.move && mouse.pos_prev) {
             socket.emit('draw_line', { line: [mouse.pos, mouse.pos_prev ], lineColor: yourColor });
@@ -116,9 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(mainLoop, 1);
     }();
 
-
     socket.on('clear_lines', () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    const saveButton = document.getElementById('save-canvas-btn');
+    saveButton.addEventListener('click', () => {
+        socket.emit('save_canvas', canvas.toDataURL('image/png') );
+    });
+
+    socket.on('load_canvas', (data) => {
+        const areaToPutCanvas = document.getElementById('load-canvas');
+        const loadedCanvas = document.createElement('img');
+        loadedCanvas.src = data;
+        areaToPutCanvas.appendChild(loadedCanvas);
     });
 
 });

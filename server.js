@@ -2,7 +2,10 @@
 const express = require('express'),
     app = express(),
     http = require('http'),
-    socketIo = require('socket.io');
+    socketIo = require('socket.io'),
+    fs = require('fs'),
+    path = require('path');
+
 
 // setting up the server
 const server = http.createServer(app);
@@ -34,5 +37,14 @@ io.on('connection', (socket) => {
     socket.on('clear_lines', () => {
         line_history.splice(0);
         io.emit('clear_lines', true);
+    });
+
+    socket.on('save_canvas', (data) => {
+        fs.writeFile('./data/new.png', data, (err) => {if (err) throw err });
+    });
+
+    socket.on('load_canvas', () => {
+        const img = fs.readFileSync(path.join(__dirname, '.', 'data', 'new.png'), 'utf8');
+        io.emit('load_canvas', img);
     });
 });
