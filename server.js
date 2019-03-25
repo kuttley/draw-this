@@ -40,11 +40,20 @@ io.on('connection', (socket) => {
     });
 
     socket.on('save_canvas', (data) => {
-        fs.writeFile('./data/new.png', data, (err) => {if (err) throw err });
+        const canvasFile = './data/' + Date.now() + '.png';
+        console.log(canvasFile);
+        fs.writeFile(canvasFile, data, (err) => {if (err) throw err });
     });
 
     socket.on('load_canvas', () => {
-        const img = fs.readFileSync(path.join(__dirname, '.', 'data', 'new.png'), 'utf8');
-        io.emit('load_canvas', img);
+        const canvasesDir = './data/';
+        const savedCanvases = [];
+        const files = fs.readdirSync(canvasesDir);
+        files.forEach(file => {
+            if (file != '.DS_Store') {
+                savedCanvases.push(fs.readFileSync(path.resolve(canvasesDir, file), 'utf8'));
+            }
+        });
+        io.emit('load_canvas', savedCanvases);
     });
 });

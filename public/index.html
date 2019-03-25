@@ -3,19 +3,20 @@
 <head>
     <title>Draw This</title>
     <meta charset="UTF-8">
+    <link rel="icon" href="https://cdn.glitch.com/1bde318c-b0ad-498e-9300-3e67c46bab58%2Ffavicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
     <script src="client.js"></script>
 </head>
 <body>
-    <img src="logo.png" alt="draw this logo">
-    <canvas class="d-flex mr-auto ml-auto my-3 border border-primary shadow" id="drawing"></canvas>
+    <img class="d-flex mr-auto ml-auto" src="https://cdn.glitch.com/1bde318c-b0ad-498e-9300-3e67c46bab58%2Flogo.png" alt="draw this logo">
     <div class="d-flex">
-        <input class="ml-auto mr-5 btn btn-outline-primary" type="button" value="Clear Canvas" onclick="clear_lines();"/>
-        <input class="mr-5 btn btn-outline-primary" type="button" value="Save Canvas" id="save-canvas-btn" />
-        <input class="mr-auto btn btn-outline-primary" type="button" value="Load Canvas" onclick="load_canvas();">
+      <input class="ml-auto mr-5 btn btn-sm btn-outline-danger" type="button" value="Clear Canvas" id="clear-canvas-btn" />
+      <input class="mr-5 btn btn-sm btn-outline-primary" type="button" value="Save Canvas" id="save-canvas-btn" />
+      <input class="mr-auto btn btn-sm btn-outline-info" type="button" value="View Saved" id="load-canvas-btn" />
     </div>
+    <canvas class="d-flex mr-auto ml-auto my-3 border border-primary shadow" id="drawing"></canvas>
     <div id="load-canvas"></div>
 </body>
 </html>

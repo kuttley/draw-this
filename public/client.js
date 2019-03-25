@@ -8,14 +8,6 @@ function getMousePos(canvas, evt) {
     };
 }
 
-function clear_lines() {
-    socket.emit('clear_lines', true);
-}
-
-function load_canvas() {
-    socket.emit('load_canvas');
-}
-
 function getRandomColor() {
     let color = 'rgb(';
     for (let i = 0; i < 3; i++) {
@@ -117,17 +109,32 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('clear_lines', () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
     });
+    
+    const clearButton = document.getElementById('clear-canvas-btn');
+    clearButton.addEventListener('click', () => {
+      socket.emit('clear_lines', true);
+    });
 
     const saveButton = document.getElementById('save-canvas-btn');
     saveButton.addEventListener('click', () => {
         socket.emit('save_canvas', canvas.toDataURL('image/png') );
     });
+      
+    const loadButton = document.getElementById('load-canvas-btn');
+    loadButton.addEventListener('click', () => {
+      socket.emit('load_canvas');
+    });
 
-    socket.on('load_canvas', (data) => {
+    socket.on('load_canvas', (canvases) => {
         const areaToPutCanvas = document.getElementById('load-canvas');
-        const loadedCanvas = document.createElement('img');
-        loadedCanvas.src = data;
-        areaToPutCanvas.appendChild(loadedCanvas);
+        while (areaToPutCanvas.firstChild) {
+            areaToPutCanvas.removeChild(areaToPutCanvas.firstChild);
+        }
+        canvases.forEach((canvas) => {
+            const loadedCanvas = document.createElement('img');
+            loadedCanvas.src = canvas;
+            areaToPutCanvas.appendChild(loadedCanvas);
+        });
     });
 
 });
