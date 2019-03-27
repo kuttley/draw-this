@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
         fs.writeFile(canvasFile, data, (err) => {if (err) throw err });
     });
 
-    socket.on('load_canvas', () => {
+    socket.on('load_canvas_overlay', () => {
         const canvasesDir = './data/';
         const savedCanvases = [];
         const files = fs.readdirSync(canvasesDir);
@@ -54,6 +54,6 @@ io.on('connection', (socket) => {
                 savedCanvases.push(fs.readFileSync(path.resolve(canvasesDir, file), 'utf8'));
             }
         });
-        io.emit('load_canvas', savedCanvases);
+        io.emit('load_canvas_overlay', savedCanvases);
     });
 });

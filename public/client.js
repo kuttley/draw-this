@@ -15,7 +15,6 @@ function getRandomColor() {
     }
     color = color.slice(0, color.length-2);
     color += ')';
-    console.log(color);
     return color;
 }
 
@@ -119,22 +118,28 @@ document.addEventListener('DOMContentLoaded', () => {
     saveButton.addEventListener('click', () => {
         socket.emit('save_canvas', canvas.toDataURL('image/png') );
     });
-      
+
     const loadButton = document.getElementById('load-canvas-btn');
     loadButton.addEventListener('click', () => {
-      socket.emit('load_canvas');
+      socket.emit('load_canvas_overlay');
     });
 
-    socket.on('load_canvas', (canvases) => {
-        const areaToPutCanvas = document.getElementById('load-canvas');
-        while (areaToPutCanvas.firstChild) {
-            areaToPutCanvas.removeChild(areaToPutCanvas.firstChild);
+    socket.on('load_canvas_overlay', (canvases) => {
+        const carouselInner = document.getElementById('carousel-inner');
+        while(carouselInner.firstChild != null) {
+            carouselInner.removeChild(carouselInner.firstChild);
         }
-        canvases.forEach((canvas) => {
-            const loadedCanvas = document.createElement('img');
-            loadedCanvas.src = canvas;
-            areaToPutCanvas.appendChild(loadedCanvas);
+
+        canvases.forEach(canvas => {
+            const carouselItemDiv = document.createElement('div');
+            carouselItemDiv.classList.add('carousel-item', 'p-4');
+            const canvasImage = document.createElement('img');
+            canvasImage.classList.add('carousel-canvas-img', 'img-fluid', 'img-thumbnail');
+            canvasImage.src = canvas;
+            carouselItemDiv.appendChild(canvasImage);
+            carouselInner.appendChild(carouselItemDiv);
         });
+        carouselInner.firstElementChild.classList.add('active');
     });
 
 });

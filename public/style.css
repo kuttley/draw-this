@@ -8,3 +8,9 @@ body, html {
     height: 100%;
 }
 
+.carousel-control-prev span {
+    margin-right: 95px;
+}
+.carousel-control-next span {
+    margin-left: 95px;
+}
