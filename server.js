@@ -1,7 +1,6 @@
 // setting up express, http, socketIo, and the app
 const express = require('express'),
     app = express(),
-    http = require('http'),
     socketIo = require('socket.io'),
     fs = require('fs'),
     path = require('path');

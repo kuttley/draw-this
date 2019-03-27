@@ -4,6 +4,7 @@
     "author": "kuttley",
     "dependencies": {
         "express": "^4.x",
+        "shake.js": "^1.2.2",
         "socket.io": "*"
     }
 }
