@@ -1,6 +1,6 @@
-const socket = io.connect(),
-    shake = require('shake.js');
+const shake = require('shake.js');
 
+const socket = io.connect();
 
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
@@ -22,18 +22,17 @@ function getRandomColor() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  
     // shake event handling
     const shakeEvent = new shake({
         threshold: 15,
-        timeout: 120
     });
     shakeEvent.start();
     window.addEventListener('shake', shakeEventOccur, false);
     function shakeEventOccur() {
         socket.emit('clear_lines', true);
     }
-
+  
     const yourColor = getRandomColor();
     const mouse = {
         click: false,
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveButton.addEventListener('click', () => {
         socket.emit('save_canvas', canvas.toDataURL('image/png') );
         saveButton.setAttribute('disabled', true);
-        saveButton.removeAttribute
+        setTimeout(() => {saveButton.removeAttribute('disabled')}, 60000);
     });
 
     const loadButton = document.getElementById('load-canvas-btn');

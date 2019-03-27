@@ -1,6 +1,7 @@
 // setting up express, http, socketIo, and the app
 const express = require('express'),
     app = express(),
+    http = require('http'),
     socketIo = require('socket.io'),
     fs = require('fs'),
     path = require('path');
@@ -17,6 +18,10 @@ console.log('Server running on localhost:8080');
 
 // keeps track of lines ever drawn
 const line_history = [];
+
+// times out saving so it cant be abused
+let save_timeout_enabled = false;
+const save_timeout_length = 60;
 
 // when a new client connects, socket of new client is passed as argument.
 io.on('connection', (socket) => {
@@ -39,9 +44,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('save_canvas', (data) => {
-        const canvasFile = './data/' + Date.now() + '.png';
-        console.log(canvasFile);
-        fs.writeFile(canvasFile, data, (err) => {if (err) throw err });
+        if (save_timeout_enabled === false) {
+          const canvasFile = './data/' + Date.now() + '.png';
+          console.log(canvasFile);
+          fs.writeFile(canvasFile, data, (err) => {if (err) throw err });
+          save_timeout_enabled = true;
+          setTimeout(() => save_timeout_enabled = false, save_timeout_length);
+        }
     });
 
     socket.on('load_canvas_overlay', () => {
