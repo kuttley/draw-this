@@ -1,10 +1,14 @@
 {
-    "name": "DrawThis",
+    "name": "draw-this",
     "description": "Collaborative drawing experience",
     "author": "kuttley",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js && node public/client.js"
+    },
     "dependencies": {
-        "express": "^4.x",
+        "express": "^4.17.1",
         "shake.js": "^1.2.2",
-        "socket.io": "*"
+        "socket.io": "^4.1.3"
     }
 }
